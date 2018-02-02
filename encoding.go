@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"reflect"
 	"strconv"
+	"strings"
 
 	yaml "gopkg.in/yaml.v2"
 )
@@ -50,13 +51,14 @@ func JsonToJavaProperties(data interface{}) []byte {
 	buffer := new(bytes.Buffer)
 	var right interface{}
 	for k, v := range data.(map[string]interface{}) {
+		left := strings.Replace(k, "#", ".", -1)
 		if fmt.Sprint(reflect.TypeOf(v)) == "map[string]interface {}" {
 			right = MarshalData(v, "json")
 		} else {
 			right = v
 		}
 
-		buffer.Write([]byte(fmt.Sprintf("%s = %v\n", k, right)))
+		buffer.Write([]byte(fmt.Sprintf("%s = %v\n", left, right)))
 	}
 	return buffer.Bytes()
 }
