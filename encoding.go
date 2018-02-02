@@ -53,7 +53,7 @@ func JsonToJavaProperties(data interface{}) []byte {
 	for k, v := range data.(map[string]interface{}) {
 		left := strings.Replace(k, "#", ".", -1)
 		if fmt.Sprint(reflect.TypeOf(v)) == "map[string]interface {}" {
-			right = MarshalData(v, "json")
+			right = string(MarshalData(v, "json")[:])
 		} else {
 			right = v
 		}
