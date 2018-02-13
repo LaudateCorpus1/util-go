@@ -28,8 +28,8 @@ func MarshalData(data interface{}, format string) []byte {
 	return marshaledData
 }
 
-func UnmarshalData(byteData []byte, format string) interface{} {
-	var data interface{}
+func UnmarshalData(byteData []byte, format string) map[string]interface{} {
+	var data map[string]interface{}
 
 	switch format {
 	case "json":
